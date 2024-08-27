@@ -9,11 +9,11 @@ services:
       - SA_PASSWORD=YourStr0ngPassw0rd!
     ports:
       - "1433:1433"
-    volumes:
-      - ./sql1_data:/var/opt/mssql
-      - ./sql1_backups:/backups
     networks:
       - sql_network
+    volumes:
+      - sql1_data:/var/opt/mssql
+    user: root
 
   sql2:
     image: mcr.microsoft.com/mssql/server
@@ -23,13 +23,16 @@ services:
       - SA_PASSWORD=YourStr0ngPassw0rd!
     ports:
       - "1434:1433"
-    volumes:
-      - ./sql2_data:/var/opt/mssql
-      - ./sql2_backups:/backups
     networks:
       - sql_network
+    volumes:
+      - sql2_data:/var/opt/mssql
+    user: root
 
 networks:
   sql_network:
     driver: bridge
 
+volumes:
+  sql1_data:
+  sql2_data:
